@@ -1,0 +1,13 @@
+---
+# vars file for LAMP
+mysql_root: root
+mysql_root_password: toortoor
+db_name: database
+db_user: lemur
+db_user_password: lemur 
+# mysql_host: localhost
+mysql_dump_file_local: "{{role_path}}/files/table.sql"
+mysql_csv_file_local: "{{role_path}}/files/dump.csv"
+mysql_file_remote: "~/"
+mysql_dump_file_remote: "~/table.sql"
+mysql_csv_file_remote: "~/dump.csv"

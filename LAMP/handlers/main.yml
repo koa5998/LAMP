@@ -1,0 +1,17 @@
+---
+# handlers file for LAMP
+- name: Stop nginx
+  systemd:
+    name: nginx
+    state: stopped
+ 
+- name: Restart apache2
+  become: true
+  systemd:
+    name: apache2
+    state: restarted
+
+- name: Restart mysql
+  service:
+    name: mysql
+    state: restarted

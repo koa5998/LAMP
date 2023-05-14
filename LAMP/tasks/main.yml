@@ -1,0 +1,8 @@
+---
+# tasks file for LAMP
+#####install mysql
+  - include_tasks: mysql_install.yml
+  #####install php
+  - include_tasks: php_install.yml
+  #####install apache2
+  - include_tasks: apache2_install.yml

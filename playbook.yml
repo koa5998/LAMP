@@ -1,0 +1,11 @@
+---
+
+- name: Install LAMP
+  hosts: all
+  become: yes
+  tasks:
+   - name: Updating
+     apt:
+      update_cache: yes
+  roles:
+    - LAMP

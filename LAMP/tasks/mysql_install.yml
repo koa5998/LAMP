@@ -1,0 +1,47 @@
+- name: Install mysql
+  apt:
+    name: mysql-server, python3-pip
+    state: latest
+
+- name: Install pymysql
+  pip:
+    name: pymysql
+    state: latest
+
+#- name: Change mysqld.conf
+#  copy:
+#    src: mysqld.cnf
+#    dest: /etc/mysql/mysql.conf.d/mysqld.cnf
+#    owner: root
+#    group: root
+#    mode: '0644'
+#  notify: Restart MySQL
+
+
+- name: update mysql root password
+  mysql_user:
+    name: root
+    password: "{{ mysql_root_password }}"
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+    check_implicit_admin: yes
+    priv: "*.*:ALL,GRANT"
+    state: present
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+
+- name: Create a new database
+  mysql_db:
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+    name: "{{db_name}}"
+    state: present
+
+- name: add user to db
+  mysql_user:
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+    host: localhost
+    name: "{{db_user}}"
+    password: "{{db_user_password}}"
+    priv: '{{db_name}}.*:ALL,GRANT'
+    state: present
